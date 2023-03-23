@@ -1,7 +1,6 @@
 package com.brokis.Banco.repositorio;
-
-import com.brokis.Banco.controlador.DTO.IdDTO;
+import com.brokis.Banco.modelo.Cuenta;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RepCuenta extends JpaRepository<IdDTO, Long> {
+public interface RepCuenta extends JpaRepository <Cuenta,Long> {
 }

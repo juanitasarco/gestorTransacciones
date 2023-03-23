@@ -1,8 +1,7 @@
 package com.brokis.Banco.controlador;
 
 
-import com.brokis.Banco.servicio.ServicioTransaccion;
-import com.brokis.Banco.controlador.DTO.IdDTO;
+import com.brokis.Banco.servicio.Transaccion.ServicioTransaccion;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,15 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class ControladorServicio {
     private final ServicioTransaccion servicioCuenta;
-    @GetMapping("/consultar/{numeroCuenta}")
-    public ResponseEntity consultarSaldo(@PathVariable IdDTO numeroCuenta) {
-        return new ResponseEntity(servicioCuenta.consultarSaldo(numeroCuenta), HttpStatus.OK);
-    }
+
+
     /*
-    @PutMapping("/depositar/{numeroCuenta}/{monto}")
-    public ResponseEntity realizarDeposito(@PathVariable Long numeroCuenta, @PathVariable double monto) {
-        return new ResponseEntity(servicioCuenta.realizarDeposito(numeroCuenta, monto), HttpStatus.OK);
-    }
+
     @PutMapping("transferencia/{numeroCuentaOrigen}/{numeroCuentaDestino}/{monto}")
     public ResponseEntity<String> transferir(
             @PathVariable Long numeroCuentaOrigen,

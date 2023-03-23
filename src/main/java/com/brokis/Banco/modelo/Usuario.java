@@ -11,7 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Usuario {
 
     @Id
-    private int documento;
+    private Long documento;
     @Column(nullable = false)
     private String nombre;
     @Column(nullable = false)
