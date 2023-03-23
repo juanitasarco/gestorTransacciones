@@ -1,13 +1,10 @@
 package com.brokis.Banco.modelo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.catalina.User;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -19,17 +16,17 @@ public class Cuenta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long ID;
     @JsonFormat(pattern = " ")
-    @Column
-    private String TYPE;
-    @Column
-    private int MONEY=0;
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column
-    private Date DATE_CREATED;
-    @Column
-    private int USER;
+    @Column(name = "TYPE")
+    private String Tipo;
+    @Column (name = "MONEY")
+    private int Saldo=0;
+    @Temporal(TemporalType.DATE)
+    @Column (name = "DATE_CREATED")
+    private Date Fecha_De_Creacion;
+    @Column (name = "USER")
+    private int Usuario;
 
 
 }

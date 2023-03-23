@@ -28,7 +28,7 @@ public class ServicioCuentaImp implements ServicioCuenta {
     public Cuenta depositarCuenta(Long id, int monto) {
         Cuenta cuentaBuscada = repCuenta.findById(id).orElseThrow(() ->
                 new RuntimeException("Cuenta no encontrada"));
-        cuentaBuscada.setMONEY(cuentaBuscada.getMONEY() + monto);
+        cuentaBuscada.setSaldo(cuentaBuscada.getSaldo() + monto);
         return repCuenta.save(cuentaBuscada);
     }
 

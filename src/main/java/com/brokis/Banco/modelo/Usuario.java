@@ -12,12 +12,12 @@ public class Usuario {
 
     @Id
     private Long documento;
-    @Column(nullable = false)
+    @Column(name = "NAME")
     private String nombre;
-    @Column(nullable = false)
+    @Column(name = "LAST_NAME")
     private String apellido;
-    @Column
-    @DateTimeFormat
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DATE_CREATED")
     private String fechaDeCreacion ;
 
 

@@ -19,14 +19,14 @@ public class ServicioTransaccionImp implements ServicioTransaccion {
         Cuenta CuentaDestino = repCuenta.findById(cuentaDestino).orElseThrow(() ->
                 new RuntimeException("Cuenta destino no encontrada"));
 
-        if (CuentaOrigen.getMONEY() < monto) {
+        if (CuentaOrigen.getSaldo() < monto) {
             throw new RuntimeException("Saldo insuficiente");
         }
-        CuentaOrigen.setMONEY(CuentaOrigen.getMONEY() - monto);
-        CuentaDestino.setMONEY(CuentaDestino.getMONEY() + monto);
+        CuentaOrigen.setSaldo(CuentaOrigen.getSaldo() - monto);
+        CuentaDestino.setSaldo(CuentaDestino.getSaldo() + monto);
         repCuenta.save(CuentaDestino);
         repCuenta.save(CuentaDestino);
 
-        return null; //Averiguar que retorna
+        return null;
     }
 }

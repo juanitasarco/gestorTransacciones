@@ -13,12 +13,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Transaccion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long transaccionId;
-    @Column
+    private Long ID;
+    @Column (name = "ORIGEN")
     private Long cuentaOrigen;
-    @Column
+    @Column (name = "DESTINATION")
     private Long cuentaDestino;
-    @Column
+    @Column (name = "AMOUNT")
     private int monto;
 
 
