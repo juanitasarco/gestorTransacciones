@@ -12,14 +12,14 @@ public class Usuario {
 
     @Id
     @Column(name = "DOCUMENT")
-    private int documento;
+    private int DOCUMENT;
     @Column(name = "NAME")
-    private String nombre;
+    private String NAME;
     @Column(name = "LAST_NAME")
-    private String apellido;
+    private String LAST_NAME;
     @Temporal(TemporalType.DATE)
     @Column(name = "DATE_CREATED")
-    private String fechaDeCreacion ;
+    private String DATE_CREATED;
 
 
 

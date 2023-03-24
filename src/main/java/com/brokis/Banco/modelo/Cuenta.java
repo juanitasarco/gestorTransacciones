@@ -31,8 +31,8 @@ public class Cuenta {
    // @ManyToOne
     //@JoinColumn (name = "USER")
     //Usuario usuario;
-    @ManyToOne
-    @Column (name = "USER")
+    @ManyToOne ()
+    @JoinColumn (name = "USER")
     Usuario usuario;
 
 
