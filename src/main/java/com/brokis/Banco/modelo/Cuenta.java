@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -22,11 +23,17 @@ public class Cuenta {
     private String Tipo;
     @Column (name = "MONEY")
     private int Saldo=0;
-    @Temporal(TemporalType.DATE)
+    //@Temporal(TemporalType.DATE)
+    //@DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column (name = "DATE_CREATED")
     private Date Fecha_De_Creacion;
+   // @ManyToOne
+    //@JoinColumn (name = "USER")
+    //Usuario usuario;
+    @ManyToOne
     @Column (name = "USER")
-    private int Usuario;
+    Usuario usuario;
 
 
 }
