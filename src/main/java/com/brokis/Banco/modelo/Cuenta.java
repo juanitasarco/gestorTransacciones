@@ -23,17 +23,15 @@ public class Cuenta {
     private String Tipo;
     @Column (name = "MONEY")
     private int Saldo=0;
-    //@Temporal(TemporalType.DATE)
-    //@DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column (name = "DATE_CREATED")
+    @Temporal(TemporalType.DATE)
+    @Column(name = "DATE_CREATED")
     private Date Fecha_De_Creacion;
-   // @ManyToOne
-    //@JoinColumn (name = "USER")
-    //Usuario usuario;
-    @ManyToOne ()
-    @JoinColumn (name = "USER")
+    @ManyToOne()
+    @JoinColumn(name = "USER")
     Usuario usuario;
 
-
+    @PrePersist
+    public void prePersist() {
+        Fecha_De_Creacion = new Date();
+    }
 }
