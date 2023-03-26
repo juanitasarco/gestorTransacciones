@@ -1,5 +1,6 @@
 package com.brokis.Banco.modelo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,11 +16,12 @@ public class Transaccion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
     @Column (name = "ORIGEN")
-    private Long cuentaOrigen;
+    private Long  ORIGEN;
+    @JsonFormat(pattern = " ")
     @Column (name = "DESTINATION")
-    private Long cuentaDestino;
+    private Long DESTINATION;
     @Column (name = "AMOUNT")
-    private int monto;
+    private int AMOUNT;
 
 
 }
