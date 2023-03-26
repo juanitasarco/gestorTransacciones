@@ -1,6 +1,7 @@
 package com.brokis.Banco.servicio.Cuenta;
 
 import com.brokis.Banco.modelo.*;
+import com.brokis.Banco.repositorio.RepCrud;
 import com.brokis.Banco.repositorio.RepCuenta;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,11 +12,17 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ServicioCuentaImp implements ServicioCuenta {
     private final RepCuenta repCuenta;
+    private final RepCrud repCrud;
 
     @Override
-    public Cuenta crearCuenta(Cuenta Cuenta) {
-
-        return repCuenta.save(Cuenta);
+    public Cuenta crearCuenta(Cuenta cuenta) {
+        long usuario = cuenta.getUsuario().getDOCUMENT();
+        long count = repCrud.countByUsuario(usuario);
+        if (count > 3) {
+            throw new IllegalStateException("El usuario ya tiene 3 cuentas");
+        }else {
+            return repCuenta.save(cuenta);
+        }
     }
 
     @Override

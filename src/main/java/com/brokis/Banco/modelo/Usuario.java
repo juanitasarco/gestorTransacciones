@@ -19,9 +19,13 @@ public class Usuario {
     private String NAME;
     @Column(name = "LAST_NAME")
     private String LAST_NAME;
-    //@Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     @Column(name = "DATE_CREATED")
     private Date DATE_CREATED;
 
+    @PrePersist
+    public void prePersist() {
+        DATE_CREATED = new Date();
+    }
 
 }

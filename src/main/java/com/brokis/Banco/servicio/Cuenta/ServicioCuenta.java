@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public interface ServicioCuenta {
 
-    Cuenta crearCuenta(Cuenta Cuenta);
+    Cuenta crearCuenta(Cuenta cuenta);
     Optional<Cuenta> consultarSaldo(Long id);
     Cuenta depositarCuenta(Long id, int monto);
     Cuenta eliminarCuenta(Long id);
