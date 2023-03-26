@@ -3,6 +3,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.Date;
+
 
 @Data
 @AllArgsConstructor
@@ -11,15 +13,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Usuario {
 
     @Id
-    private Long documento;
+    @Column(name = "DOCUMENT")
+    private int DOCUMENT;
     @Column(name = "NAME")
-    private String nombre;
+    private String NAME;
     @Column(name = "LAST_NAME")
-    private String apellido;
-    @Temporal(TemporalType.DATE)
+    private String LAST_NAME;
+    //@Temporal(TemporalType.DATE)
     @Column(name = "DATE_CREATED")
-    private String fechaDeCreacion ;
-
+    private Date DATE_CREATED;
 
 
 }

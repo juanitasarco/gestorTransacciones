@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -23,10 +24,14 @@ public class Cuenta {
     @Column (name = "MONEY")
     private int Saldo=0;
     @Temporal(TemporalType.DATE)
-    @Column (name = "DATE_CREATED")
+    @Column(name = "DATE_CREATED")
     private Date Fecha_De_Creacion;
-    @Column (name = "USER")
-    private int Usuario;
+    @ManyToOne()
+    @JoinColumn(name = "USER")
+    Usuario usuario;
 
-
+    @PrePersist
+    public void prePersist() {
+        Fecha_De_Creacion = new Date();
+    }
 }
