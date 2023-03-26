@@ -25,8 +25,10 @@ public class Cuenta {
     @Temporal(TemporalType.DATE)
     @Column (name = "DATE_CREATED")
     private Date Fecha_De_Creacion;
+
+    @ManyToOne
     @Column (name = "USER")
-    private int Usuario;
+    private Usuario usuario;
 
 
 }
