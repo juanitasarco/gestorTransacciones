@@ -16,8 +16,8 @@ public class ServicioCuentaImp implements ServicioCuenta {
 
     @Override
     public Cuenta crearCuenta(Cuenta cuenta) {
-        long id = cuenta.getID();
-        long count = repCrud.countByUsuario(id);
+        long usuario = cuenta.getUsuario().getDOCUMENT();
+        long count = repCrud.countByUsuario(usuario);
         if (count > 3) {
             throw new IllegalStateException("El usuario ya tiene 3 cuentas");
         }else {
