@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/usuario")
 @AllArgsConstructor
@@ -17,5 +19,9 @@ public class ControladorUsuario {
     @PostMapping("/crear")
     public ResponseEntity crearCuenta(@RequestBody Usuario usuario) {
         return new ResponseEntity(servicioUsuario.crearUsuario(usuario), HttpStatus.CREATED);
+    }
+    @GetMapping("/consultarCuentas/{id}")
+    public List<Cuenta> consultarCuentas(@PathVariable Long id) {
+        return servicioUsuario.consultarCuentas(id);
     }
 }
