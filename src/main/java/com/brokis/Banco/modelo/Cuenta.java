@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -17,21 +16,21 @@ public class Cuenta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID;
+    private Long id;
     @JsonFormat(pattern = " ")
     @Column(name = "TYPE")
-    private String Tipo;
+    private String tipo;
     @Column (name = "MONEY")
-    private int Saldo=0;
+    private int saldo;
     @Temporal(TemporalType.DATE)
     @Column(name = "DATE_CREATED")
-    private Date Fecha_De_Creacion;
+    private Date fechaDeCreacion;
     @ManyToOne()
     @JoinColumn(name = "USER")
     Usuario usuario;
 
     @PrePersist
     public void prePersist() {
-        Fecha_De_Creacion = new Date();
+        fechaDeCreacion = new Date();
     }
 }

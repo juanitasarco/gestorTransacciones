@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity(name = "TRANSACTION")
 @Data
@@ -14,14 +13,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Transaccion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID;
+    private Long id;
     @Column (name = "ORIGEN")
-    private Long  ORIGEN;
+    private Long origen;
     @JsonFormat(pattern = " ")
     @Column (name = "DESTINATION")
-    private Long DESTINATION;
+    private Long destino;
     @Column (name = "AMOUNT")
-    private int AMOUNT;
+    private int monto;
 
 
 }

@@ -1,7 +1,6 @@
 package com.brokis.Banco.modelo;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -14,18 +13,18 @@ public class Usuario {
 
     @Id
     @Column(name = "DOCUMENT")
-    private int DOCUMENT;
+    private int documento;
     @Column(name = "NAME")
-    private String NAME;
+    private String nombre;
     @Column(name = "LAST_NAME")
-    private String LAST_NAME;
+    private String apellido;
     @Temporal(TemporalType.DATE)
     @Column(name = "DATE_CREATED")
-    private Date DATE_CREATED;
+    private Date fechaDeCreacion;
 
     @PrePersist
     public void prePersist() {
-        DATE_CREATED = new Date();
+        fechaDeCreacion = new Date();
     }
 
 }
