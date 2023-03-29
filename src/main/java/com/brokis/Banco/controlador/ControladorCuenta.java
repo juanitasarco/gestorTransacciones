@@ -1,5 +1,6 @@
 package com.brokis.Banco.controlador;
 
+import com.brokis.Banco.controlador.dto.CuentaDTO;
 import com.brokis.Banco.modelo.*;
 import com.brokis.Banco.servicio.Cuenta.ServicioCuenta;
 import lombok.AllArgsConstructor;
@@ -13,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 public class ControladorCuenta {
     private final ServicioCuenta servicioCuenta;
     @PostMapping("/crear")
-    public ResponseEntity crearCuenta(@RequestBody Cuenta Cuenta) {
-        return new ResponseEntity(servicioCuenta.crearCuenta(Cuenta), HttpStatus.CREATED);
+    public ResponseEntity crearCuenta(@RequestBody CuentaDTO cuentaDTO) {
+        return new ResponseEntity(servicioCuenta.crearCuenta(cuentaDTO), HttpStatus.CREATED);
     }
     @GetMapping("/consultar/{id}")
     public ResponseEntity consultarSaldo(@PathVariable Long id) {

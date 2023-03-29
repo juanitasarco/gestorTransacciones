@@ -1,2 +1,9 @@
-package com.brokis.Banco.controlador.dto;public class TransaccionDTO {
+package com.brokis.Banco.controlador.dto;
+
+
+import lombok.Data;
+
+@Data
+public class TransaccionDTO {
+
 }

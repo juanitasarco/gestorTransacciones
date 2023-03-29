@@ -1,8 +1,11 @@
 package com.brokis.Banco.servicio.Cuenta;
 
+import com.brokis.Banco.controlador.dto.CuentaDTO;
 import com.brokis.Banco.modelo.*;
-import com.brokis.Banco.repositorio.RepCrud;
 import com.brokis.Banco.repositorio.RepCuenta;
+import com.brokis.Banco.repositorio.RepUsuario;
+import java.util.Date;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,17 +15,27 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ServicioCuentaImp implements ServicioCuenta {
     private final RepCuenta repCuenta;
-    private final RepCrud repCrud;
+    private final RepUsuario repositoryUsuario;
 
     @Override
-    public Cuenta crearCuenta(Cuenta cuenta) {
-        long usuario = cuenta.getUsuario().getDOCUMENT();
-        long count = repCrud.countByUsuario(usuario);
-        if (count > 3) {
-            throw new IllegalStateException("El usuario ya tiene 3 cuentas");
-        }else {
-            return repCuenta.save(cuenta);
+    public Cuenta crearCuenta(CuentaDTO cuentaDTO) {
+      Optional<Usuario> usuario = repositoryUsuario.findById(cuentaDTO.getDocumentoUsuario());
+      if(usuario.isPresent()){
+        Cuenta cuenta = new Cuenta();
+        cuenta.setSaldo(0);
+        cuenta.setFecha_De_Creacion(new Date());
+        cuenta.setUsuario(usuario.get());
+        cuenta.setTipo(cuentaDTO.getTipo());
+        List<Cuenta> byUsuario = repCuenta.findByUsuario(usuario.get());
+        if(byUsuario.size() >= 3){
+          throw new IllegalStateException("El usuario ya tiene 3 cuentas");
         }
+
+        return repCuenta.save(cuenta);
+      }else{
+        throw new IllegalArgumentException("Usuario innexistente");
+      }
+
     }
 
     @Override
