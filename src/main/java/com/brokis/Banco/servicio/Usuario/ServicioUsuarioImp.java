@@ -5,11 +5,14 @@ import com.brokis.Banco.modelo.Cuenta;
 import com.brokis.Banco.modelo.Usuario;
 import com.brokis.Banco.repositorio.RepCuenta;
 import com.brokis.Banco.repositorio.RepUsuario;
+
+import java.util.ArrayList;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -20,17 +23,22 @@ public class ServicioUsuarioImp implements ServicioUsuario {
     @Override
     public Usuario crearUsuario(UsuarioDTO usuarioDTO) {
         Usuario usuario = new Usuario();
-        usuario.setDOCUMENT(usuarioDTO.getDocument());
-        usuario.setLAST_NAME(usuarioDTO.getLastName());
-        usuario.setNAME(usuarioDTO.getName());
-        usuario.setDATE_CREATED(new Date());
-
+        usuario.setDocumento(usuarioDTO.getDocument());
+        usuario.setApellido(usuarioDTO.getLastName());
+        usuario.setNombre(usuarioDTO.getName());
+        usuario.setFechaDeCreacion(new Date());
         return repUsuario.save(usuario);
     }
 
     @Override
-    public List<Cuenta> consultarCuentas(Long id) {
-        //TODO cambiar esto
-        return null;
+    public List<Cuenta> consultarCuentas(UsuarioDTO usuarioDTO) {
+        Long idUsuario = usuarioDTO.getDocument();
+        List<Cuenta> cuentas = new ArrayList<>();
+        for (Cuenta cuenta : repCuenta.findAll()) {
+            if (cuenta.getUsuario().getDocumento() == idUsuario) {
+                cuentas.add(cuenta);
+            }
+        }
+        return cuentas;
     }
 }

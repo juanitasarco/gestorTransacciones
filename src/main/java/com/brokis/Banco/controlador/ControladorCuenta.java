@@ -1,6 +1,7 @@
 package com.brokis.Banco.controlador;
 
 import com.brokis.Banco.controlador.dto.CuentaDTO;
+import com.brokis.Banco.controlador.dto.IdCuentaDTO;
 import com.brokis.Banco.modelo.*;
 import com.brokis.Banco.servicio.Cuenta.ServicioCuenta;
 import lombok.AllArgsConstructor;
@@ -13,20 +14,27 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class ControladorCuenta {
     private final ServicioCuenta servicioCuenta;
-    @PostMapping("/crear")
+    @PostMapping("/creacion")
     public ResponseEntity crearCuenta(@RequestBody CuentaDTO cuentaDTO) {
         return new ResponseEntity(servicioCuenta.crearCuenta(cuentaDTO), HttpStatus.CREATED);
     }
-    @GetMapping("/consultar/{id}")
+    @GetMapping("/consulta/{id}")
     public ResponseEntity consultarSaldo(@PathVariable Long id) {
-        return new ResponseEntity(servicioCuenta.consultarSaldo(id), HttpStatus.OK);
+        IdCuentaDTO idCuentaDTO = new IdCuentaDTO();
+        idCuentaDTO.setId(id);
+        return new ResponseEntity(servicioCuenta.consultarSaldo(idCuentaDTO), HttpStatus.OK);
     }
-    @PutMapping("/depositar/{idi}/{monto}")
+    @PutMapping("/deposito/{id}/{monto}")
     public ResponseEntity realizarDeposito(@PathVariable Long id, @PathVariable int monto) {
-        return new ResponseEntity(servicioCuenta.depositarCuenta(id, monto), HttpStatus.OK);
+        IdCuentaDTO idCuentaDTO = new IdCuentaDTO();
+        idCuentaDTO.setId(id);
+        idCuentaDTO.setMonto(monto);
+        return new ResponseEntity(servicioCuenta.depositarCuenta(idCuentaDTO), HttpStatus.OK);
     }
-    @DeleteMapping("/eliminar/{id}")
+    @DeleteMapping("/eliminacion/{id}")
     public ResponseEntity eliminarCuenta(@PathVariable Long id){
-        return new ResponseEntity(servicioCuenta.eliminarCuenta(id), HttpStatus.OK);
+        IdCuentaDTO idCuentaDTO = new IdCuentaDTO();
+        idCuentaDTO.setId(id);
+        return new ResponseEntity(servicioCuenta.eliminarCuenta(idCuentaDTO), HttpStatus.OK);
     }
 }

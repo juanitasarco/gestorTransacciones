@@ -4,13 +4,8 @@ import com.brokis.Banco.modelo.*;
 import com.brokis.Banco.modelo.Transaccion;
 import com.brokis.Banco.repositorio.RepCuenta;
 import com.brokis.Banco.repositorio.RepTransaccion;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.time.format.DecimalStyle;
 
 @Service
 @AllArgsConstructor

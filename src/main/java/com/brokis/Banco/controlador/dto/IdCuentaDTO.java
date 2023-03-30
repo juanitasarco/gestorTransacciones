@@ -6,8 +6,7 @@ import lombok.Data;
 
 @Data
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class UsuarioDTO {
-  private Long document;
-  private String name;
-  private String lastName;
+public class IdCuentaDTO {
+  private Long id;
+  int monto;
 }

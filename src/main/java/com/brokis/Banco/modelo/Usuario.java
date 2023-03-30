@@ -13,7 +13,7 @@ public class Usuario {
 
     @Id
     @Column(name = "DOCUMENT")
-    private int documento;
+    private Long documento;
     @Column(name = "NAME")
     private String nombre;
     @Column(name = "LAST_NAME")

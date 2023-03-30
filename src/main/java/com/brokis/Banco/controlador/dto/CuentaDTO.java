@@ -7,7 +7,6 @@ import lombok.Data;
 @Data
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class CuentaDTO {
-
   private String tipo;
   private long documentoUsuario;
 }

@@ -9,5 +9,5 @@ import java.util.Optional;
 
 public interface ServicioUsuario {
     Usuario crearUsuario(UsuarioDTO usuario);
-    List<Cuenta> consultarCuentas(Long id);
+    List<Cuenta> consultarCuentas(UsuarioDTO usuarioDTO);
 }
