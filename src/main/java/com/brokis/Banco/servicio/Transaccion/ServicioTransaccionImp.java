@@ -15,23 +15,23 @@ public class ServicioTransaccionImp implements ServicioTransaccion {
     public final RepTransaccion repTransaccion;
 
     @Override
-    public String hacerTransferencia(Long ID,Long ORIGIN, Long DESTINATION, int AMOUNT) {
+    public String hacerTransferencia(Long id,Long origen, Long destino, int monto) {
 
-        Cuenta CuentaOrigen = repCuenta.findById(ORIGIN).orElseThrow(() ->
+        Cuenta cuentaOrigen = repCuenta.findById(origen).orElseThrow(() ->
                 new RuntimeException("Cuenta origen no encontrada"));
-        Cuenta CuentaDestino = repCuenta.findById(DESTINATION).orElseThrow(() ->
+        Cuenta cuentaDestino = repCuenta.findById(destino).orElseThrow(() ->
                 new RuntimeException("Cuenta destino no encontrada"));
 
-        if (CuentaOrigen.getSaldo() < AMOUNT) {
+        if (cuentaOrigen.getSaldo() < monto) {
             throw new RuntimeException("Saldo insuficiente");
         }
 
-        System.out.println(DESTINATION);
-        CuentaOrigen.setSaldo(CuentaOrigen.getSaldo() - AMOUNT);
-        CuentaDestino.setSaldo(CuentaDestino.getSaldo() + AMOUNT);
-        repCuenta.save(CuentaDestino);
-        repCuenta.save(CuentaOrigen);
-        Transaccion nuevaTransaccion = new Transaccion( ID, ORIGIN,DESTINATION,AMOUNT);
+        System.out.println(destino);
+        cuentaOrigen.setSaldo(cuentaOrigen.getSaldo() - monto);
+        cuentaDestino.setSaldo(cuentaDestino.getSaldo() + monto);
+        repCuenta.save(cuentaDestino);
+        repCuenta.save(cuentaOrigen);
+        Transaccion nuevaTransaccion = new Transaccion( id, origen,destino,monto);
         repTransaccion.save(nuevaTransaccion);
 
         return "La Transferencia ha sido exitosa";
