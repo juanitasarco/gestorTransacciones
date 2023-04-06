@@ -1,7 +1,6 @@
 package com.brokis.Banco.controlador;
 
 import com.brokis.Banco.controlador.dto.UsuarioDTO;
-import com.brokis.Banco.modelo.Cuenta;
 import com.brokis.Banco.servicio.Usuario.ServicioUsuario;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

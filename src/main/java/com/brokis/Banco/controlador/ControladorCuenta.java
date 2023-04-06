@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class ControladorCuenta {
     private final ServicioCuenta servicioCuenta;
     @PostMapping("/creacion")
+
     public ResponseEntity crearCuenta(@RequestBody CuentaDTO cuentaDTO) {
         return new ResponseEntity(servicioCuenta.crearCuenta(cuentaDTO), HttpStatus.CREATED);
     }
