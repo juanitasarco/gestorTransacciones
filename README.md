@@ -1,7 +1,7 @@
 # Banco RestApi
 ## Juan Sebastian Pardo Parra
 ## Juan Manuel Parrado Gomez
-## Juanita Sariento Cortez
+## Juanita Sarmiento Cortes
 ## Dependencias
 - El proyecto hace uso de java 19.
 - El archivo JSON se encuentra en la carpeta resources.
