@@ -2,25 +2,16 @@ package com.brokis.Banco.controlador;
 
 import com.brokis.Banco.AbstractTest;
 import com.brokis.Banco.controlador.dto.CuentaDTO;
-import com.brokis.Banco.controlador.dto.UsuarioDTO;
 import com.brokis.Banco.modelo.Cuenta;
-import com.brokis.Banco.modelo.Usuario;
-import com.brokis.Banco.repositorio.RepUsuario;
-import com.brokis.Banco.servicio.Usuario.ServicioUsuarioImp;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import com.brokis.Banco.servicio.Usuario.ServicioUsuario;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-
-import java.net.http.HttpResponse;
+import org.springframework.test.context.jdbc.Sql;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -29,46 +20,71 @@ public class PruebasControladorCuenta extends AbstractTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
-    private static final String PATH_CUENTA_CREACION = "/cuenta/creacion";
-    @Mock
-    private RepUsuario repUsuario;
+    private static final String pathCuentaCreacion = "/cuenta/creacion";
+    private static final String pathCuentaConsulta = "/cuenta/consulta/1";
+    private static final String pathCuentaDesposito = "/cuenta/deposito/1/1000";
 
-    @InjectMocks
-    private ServicioUsuarioImp servicioUsuario;
+    private static final  String pathCuentaEliminar = "/cuenta/eliminacion/1";
 
-
+    @Sql(statements = "INSERT INTO USER (DOCUMENT,NAME,LAST_NAME,DATE_CREATED)VALUES (14,'JUAN','PARRADO','2023-03-23')")
     @Test
     public void Given_cuentaDTO_When_invoke_crearCuenta_Then_return_newCuenta() {
 
-        CuentaDTO dto = new CuentaDTO("Ahorros",0);
-        Usuario usuario = new Usuario(0L,"Juan","Parrado",null);
-        UsuarioDTO usuarioDTO = new UsuarioDTO(0L,"Juan","Parrado");
+        CuentaDTO dto = new CuentaDTO("Ahorros", 14);
 
-
-        repUsuario.save(usuario);
-        //servicioUsuario.crearUsuario(usuarioDTO);
-        Mockito.when(repUsuario.save(usuario)).thenReturn(usuario);
-
-
-        ResponseEntity<Cuenta> responseEntity = restTemplate.postForEntity(PATH_CUENTA_CREACION,dto, Cuenta.class);
-
+        ResponseEntity<Cuenta> responseEntity = restTemplate.postForEntity(pathCuentaCreacion, dto, Cuenta.class);
 
         HttpStatusCode status = responseEntity.getStatusCode();
 
-        assertEquals(HttpStatusCode.valueOf(201),status);
+        assertEquals(HttpStatusCode.valueOf(201), status);
+    }
 
+    @Test
+    public void Given_cuentaDTO_withNoUser_When_invoke_crearCuenta_Then_return_usuarioNoEncontrado() {
+        CuentaDTO dto = new CuentaDTO("Ahorros", 0);
+
+        ResponseEntity<Cuenta> responseEntity = restTemplate.postForEntity(pathCuentaCreacion, dto, Cuenta.class);
+
+        HttpStatusCode status = responseEntity.getStatusCode();
+
+        assertEquals(HttpStatusCode.valueOf(500), status);
+    }
+
+    @Test
+    @Sql(statements = "INSERT INTO USER (DOCUMENT,NAME,LAST_NAME,DATE_CREATED)VALUES (14,'JUAN','PARRADO','2023-03-23')")
+    @Sql(statements = "INSERT INTO ACCOUNT (TYPE,MONEY,DATE_CREATED,USER) VALUES ('AHORROS','1000','2023-03-23',14)")
+    public void Given_IdCuentaDTO_When_invoke_consultarSaldo_Then_return_SaldoCuenta() {
+
+        ResponseEntity<Cuenta> responseEntity = restTemplate.exchange(pathCuentaConsulta,HttpMethod.GET,null,Cuenta.class);
+
+        HttpStatusCode status = responseEntity.getStatusCode();
+
+        assertEquals(HttpStatusCode.valueOf(200),status);
+    }
+    @Test
+    @Sql(statements = "INSERT INTO USER (DOCUMENT,NAME,LAST_NAME,DATE_CREATED)VALUES (14,'JUAN','PARRADO','2023-03-23')")
+    @Sql(statements = "INSERT INTO ACCOUNT (TYPE,MONEY,DATE_CREATED,USER) VALUES ('AHORROS','1000','2023-03-23',14)")
+    public void Given_IdCuentaDTO_when_invoke_realizarDeposito_Then_return_depositarEnCuenta(){
+        ResponseEntity<Cuenta> responseEntity= restTemplate.exchange(pathCuentaDesposito,HttpMethod.PUT,null,Cuenta.class);
+
+        HttpStatusCode status = responseEntity.getStatusCode();
+
+        assertEquals(HttpStatusCode.valueOf(200),status);
 
     }
 
     @Test
-    public void Given_cuentaDTO_When_invoke_crearCuenta_Then_return_usuarioNoEncontrado(){
-        CuentaDTO dto = new CuentaDTO("Ahorros",0);
-
-        ResponseEntity<Cuenta> responseEntity = restTemplate.postForEntity(PATH_CUENTA_CREACION,dto, Cuenta.class);
+    @Sql(statements = "INSERT INTO USER (DOCUMENT,NAME,LAST_NAME,DATE_CREATED)VALUES (14,'JUAN','PARRADO','2023-03-23')")
+    @Sql(statements = "INSERT INTO ACCOUNT (TYPE,MONEY,DATE_CREATED,USER) VALUES ('AHORROS','1000','2023-03-23',14)")
+    public void Given_IdCuentaDTO_When_invoke_eliminarCuenta_Then_return_deleteCuenta(){
+        ResponseEntity<Cuenta> responseEntity = restTemplate.exchange(pathCuentaEliminar,HttpMethod.DELETE,null,Cuenta.class);
 
         HttpStatusCode status = responseEntity.getStatusCode();
 
-        assertEquals(HttpStatusCode.valueOf(500),status);
+        assertEquals(HttpStatusCode.valueOf(200),status);
+
     }
+
+
 
 }
