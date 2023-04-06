@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class ServicioCuentaImp implements ServicioCuenta {
@@ -16,27 +15,28 @@ public class ServicioCuentaImp implements ServicioCuenta {
     private final RepUsuario repositoryUsuario;
     @Override
     public Cuenta crearCuenta(CuentaDTO cuentaDTO) {
-        Optional<Usuario> usuario = repositoryUsuario.findById(cuentaDTO.getDocumentoUsuario());
-        if (usuario.isPresent()) {
+        Usuario usuarioBuscado = repositoryUsuario.findById(cuentaDTO.getDocumentoUsuario())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        if (usuarioBuscado != null) {
             Cuenta cuenta = new Cuenta();
             cuenta.setSaldo(0);
             cuenta.setFechaDeCreacion(new Date());
-            cuenta.setUsuario(usuario.get());
+            cuenta.setUsuario(usuarioBuscado);
             cuenta.setTipo(cuentaDTO.getTipo());
-            List<Cuenta> byUsuario = repCuenta.findByUsuario(usuario.get());
+            List<Cuenta> byUsuario = repCuenta.findByUsuario(usuarioBuscado);
             if (byUsuario.size() >= 3) {
                 throw new IllegalStateException("El usuario ya tiene 3 cuentas");
             }
             return repCuenta.save(cuenta);
-        } else {
-            throw new IllegalArgumentException("Usuario innexistente");
         }
+        return null;
     }
     @Override
     public Cuenta consultarSaldo(IdCuentaDTO idCuentaDTO) {
-        Optional<Cuenta> cuenta = repCuenta.findById(idCuentaDTO.getId());
-        if (cuenta.isPresent()) {
-            return cuenta.get();
+        Cuenta cuentaBuscada = repCuenta.findById(idCuentaDTO.getId()).orElseThrow(() ->
+                new RuntimeException("Cuenta no encontrada"));
+        if (cuentaBuscada!= null) {
+            return cuentaBuscada;
         } else {
             throw new IllegalArgumentException("Cuenta innexistente");
         }
