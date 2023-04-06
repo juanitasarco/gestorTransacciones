@@ -10,6 +10,7 @@ import com.brokis.Banco.repositorio.RepUsuario;
 import com.brokis.Banco.servicio.Cuenta.ServicioCuenta;
 import com.brokis.Banco.servicio.Cuenta.ServicioCuentaImp;
 import com.brokis.Banco.servicio.Usuario.ServicioUsuarioImp;
+import jakarta.xml.bind.SchemaOutputResolver;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ public class ServicioCuentaImpTest {
     @Test
     void Given_user_nonExistent_When_crearCuenta_Then_TrowIllegalArgument() {
         CuentaDTO cuentaDTO = new CuentaDTO("Ahorros", 123456789L);
-        Assertions.assertThrows(NullPointerException.class, () -> {
+        Assertions.assertThrows(RuntimeException.class, () -> {
             servicioCuenta.crearCuenta(cuentaDTO);
         });
     }
@@ -45,39 +46,37 @@ public class ServicioCuentaImpTest {
     @Test
     void Given_user_Existent_When_crearCuenta_Then_Return_Saved_Cuenta() {
         CuentaDTO cuentaDTO = new CuentaDTO("Ahorros", 123456789L);
-        Usuario usuario = new Usuario(cuentaDTO.getDocumentoUsuario(),null,null,null);
-        Cuenta cuenta = new Cuenta(null,cuentaDTO.getTipo(),0,null,usuario);
+        Usuario usuario = new Usuario(cuentaDTO.getDocumentoUsuario(),"Juan","Parrado",null);
+        Cuenta cuenta = new Cuenta(1L,cuentaDTO.getTipo(),0,null,usuario);
         List<Cuenta> byUsuario = new ArrayList<>();
         byUsuario.add(cuenta);
 
-
-        Mockito.<Optional<Usuario>>when(repUsuario.findById(cuenta.getUsuario().getDocumento())).thenReturn(Optional.of(usuario));
-        Mockito.when(repCuenta.save(cuenta)).thenReturn(cuenta);
-        Assertions.assertEquals(cuentaDTO.getTipo(), cuenta.getTipo());
-        Mockito.verify(repUsuario).findById(cuentaDTO.getDocumentoUsuario());
-        Mockito.verify(repCuenta).findByUsuario(cuenta.getUsuario());
-        Mockito.verify(repCuenta).save(cuenta);
-
-        /*
-        Mockito.when(repUsuario.findById(cuentaDTO.getDocumentoUsuario())).thenReturn(Optional.of(new Usuario()));
-        Mockito.when(repCuenta.findByUsuario(new Usuario())).thenReturn(null);
-        Mockito.when(repCuenta.save(new Cuenta())).thenReturn(new Cuenta());
-        Assertions.assertEquals(cuentaDTO.getTipo(), cuenta.getTipo());
-
-        Mockito.verify(repUsuario).findById(cuentaDTO.getDocumentoUsuario());
-        Mockito.verify(repCuenta).findByUsuario(new Usuario());
-        Mockito.verify(repCuenta).save(new Cuenta());
-
-         */
-
-
+        given(repUsuario.findById(cuentaDTO.getDocumentoUsuario())).willReturn(Optional.of(usuario));
+        given(repCuenta.findByUsuario(usuario)).willReturn(byUsuario);
+        Cuenta cuentaGuardada = servicioCuenta.crearCuenta(cuentaDTO);
+        cuentaGuardada= cuenta;
+        Assertions.assertEquals(cuentaDTO.getTipo(), cuentaGuardada.getTipo());
+        Assertions.assertEquals(cuentaDTO.getDocumentoUsuario(), cuenta.getUsuario().getDocumento());
+        Mockito.verify(repCuenta).save(Mockito.any(Cuenta.class));
 
     }
     @DisplayName("Test para consultar cuentas de un usuario")
     @Test
-    void Given_userOk_When_consultarSaldo_Then_return_cuenta() {
-
+    void Given_user_With_More_than_3Accounts_When_crearCuenta_Then_TrowRuntime() {
+        CuentaDTO cuentaDTO = new CuentaDTO("Ahorros", 123456789L);
+        Usuario usuario = new Usuario(cuentaDTO.getDocumentoUsuario(),"Juan","Parrado",null);
+        Cuenta cuenta = new Cuenta(5L,cuentaDTO.getTipo(),0,null,usuario);
+        List<Cuenta> byUsuario = new ArrayList<>();
+        byUsuario.add(new Cuenta(1L,"Ahorros",0,null,usuario));
+        byUsuario.add(new Cuenta(2L,"Corriente",0,null,usuario));
+        byUsuario.add(new Cuenta(3L,"Ahorros",0,null,usuario));
+        byUsuario.add(new Cuenta(4L,"Corriente",0,null,usuario));
+        byUsuario.add(cuenta);
+        Assertions.assertThrows(RuntimeException.class, () -> {
+            servicioCuenta.crearCuenta(cuentaDTO);
+        });
     }
+
 
 
 
