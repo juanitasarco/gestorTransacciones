@@ -21,16 +21,17 @@ public class PruebasControladorCuenta extends AbstractTest {
     @Autowired
     private TestRestTemplate restTemplate;
     private static final String pathCuentaCreacion = "/cuenta/creacion";
-    private static final String pathCuentaConsulta = "/cuenta/consulta/1";
-    private static final String pathCuentaDesposito = "/cuenta/deposito/1/1000";
+    private static final String pathCuentaConsulta = "/cuenta/consulta/2";
+    private static final String pathCuentaDesposito = "/cuenta/deposito/2/1000";
 
     private static final  String pathCuentaEliminar = "/cuenta/eliminacion/1";
 
-    @Sql(statements = "INSERT INTO USER (DOCUMENT,NAME,LAST_NAME,DATE_CREATED)VALUES (14,'JUAN','PARRADO','2023-03-23')")
+
     @Test
+    @Sql(statements = "INSERT INTO USER (DOCUMENT,NAME,LAST_NAME,DATE_CREATED)VALUES (17,'JUAN','PARRADO','2023-03-23')")
     public void Given_cuentaDTO_When_invoke_crearCuenta_Then_return_newCuenta() {
 
-        CuentaDTO dto = new CuentaDTO("Ahorros", 14);
+        CuentaDTO dto = new CuentaDTO("Ahorros", 17);
 
         ResponseEntity<Cuenta> responseEntity = restTemplate.postForEntity(pathCuentaCreacion, dto, Cuenta.class);
 
@@ -51,8 +52,8 @@ public class PruebasControladorCuenta extends AbstractTest {
     }
 
     @Test
-    @Sql(statements = "INSERT INTO USER (DOCUMENT,NAME,LAST_NAME,DATE_CREATED)VALUES (14,'JUAN','PARRADO','2023-03-23')")
-    @Sql(statements = "INSERT INTO ACCOUNT (TYPE,MONEY,DATE_CREATED,USER) VALUES ('AHORROS','1000','2023-03-23',14)")
+    @Sql(statements = "INSERT INTO USER (DOCUMENT,NAME,LAST_NAME,DATE_CREATED)VALUES (16,'JUAN','PARRADO','2023-03-23')")
+    @Sql(statements = "INSERT INTO ACCOUNT (TYPE,MONEY,DATE_CREATED,USER) VALUES ('AHORROS','1000','2023-03-23',16)")
     public void Given_IdCuentaDTO_When_invoke_consultarSaldo_Then_return_SaldoCuenta() {
 
         ResponseEntity<Cuenta> responseEntity = restTemplate.exchange(pathCuentaConsulta,HttpMethod.GET,null,Cuenta.class);
@@ -62,8 +63,8 @@ public class PruebasControladorCuenta extends AbstractTest {
         assertEquals(HttpStatusCode.valueOf(200),status);
     }
     @Test
-    @Sql(statements = "INSERT INTO USER (DOCUMENT,NAME,LAST_NAME,DATE_CREATED)VALUES (14,'JUAN','PARRADO','2023-03-23')")
-    @Sql(statements = "INSERT INTO ACCOUNT (TYPE,MONEY,DATE_CREATED,USER) VALUES ('AHORROS','1000','2023-03-23',14)")
+    @Sql(statements = "INSERT INTO USER (DOCUMENT,NAME,LAST_NAME,DATE_CREATED)VALUES (15,'JUAN','PARRADO','2023-03-23')")
+    @Sql(statements = "INSERT INTO ACCOUNT (TYPE,MONEY,DATE_CREATED,USER) VALUES ('AHORROS','1000','2023-03-23',15)")
     public void Given_IdCuentaDTO_when_invoke_realizarDeposito_Then_return_depositarEnCuenta(){
         ResponseEntity<Cuenta> responseEntity= restTemplate.exchange(pathCuentaDesposito,HttpMethod.PUT,null,Cuenta.class);
 
