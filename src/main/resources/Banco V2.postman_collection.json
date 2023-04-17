@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "302a5e3a-3aba-40cd-9384-14cadf4cacdc",
+		"name": "Banco V2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26514689"
+	},
+	"item": [
+		{
+			"name": "EliminarCuenta",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/cuenta/eliminar/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cuenta",
+						"eliminar",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DepositarEnCuenta",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/cuenta/depositar/1/150",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cuenta",
+						"depositar",
+						"1",
+						"150"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConsultarCuenta",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/cuenta/consultar/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cuenta",
+						"consultar",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConsultaCuentasPorUsuario",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/cuenta/consultar/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cuenta",
+						"consultar",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CrearCuenta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Tipo\" :\"Ahorros\",\r\n    \"Fecha_De_Creacion\" : \"2023-03-25\",\r\n    \"usuario\" : {\r\n        \"USER\" : \"32\"\r\n        }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/cuenta/crear",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cuenta",
+						"crear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CrearUsuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"document\" : \"32\",\r\n    \"NAME\" : \"Pepe\",\r\n    \"LAST_NAME\" : \"Grillo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/usuario/crear",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"crear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tranferencia",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/servicio/transferencia/27/26/100",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"servicio",
+						"transferencia",
+						"27",
+						"26",
+						"100"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
