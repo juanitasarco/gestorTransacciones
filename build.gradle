@@ -31,9 +31,18 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	runtimeOnly 'com.h2database:h2'
 }
-
+jacoco{
+	toolVersion = "0.8.8"
+	reportsDirectory = file("$buildDir/customJacocoReportDir")
+}
 test {
 	useJUnitPlatform()
 }
-
+jacocoTestReport {
+	dependsOn(test)
+	reports {
+		xml.enabled false
+		html.enabled true
+	}
+}
 
