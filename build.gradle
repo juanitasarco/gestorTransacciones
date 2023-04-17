@@ -37,12 +37,23 @@ jacoco{
 }
 test {
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport
 }
 jacocoTestReport {
 	dependsOn(test)
 	reports {
 		xml.enabled false
 		html.enabled true
+
+	}
+
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: [
+					"**/dto/**",
+					"**/modelo/*"
+			])
+		}))
 	}
 }
 
