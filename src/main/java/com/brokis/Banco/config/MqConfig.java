@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class MqConfig {
-    @Value("$tranferencia")
+    @Value("transferencia")
     private String jsonQueue;
 
     @Value("adminTransferencia")

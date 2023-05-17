@@ -1,6 +1,5 @@
 package com.brokis.Banco.servicio.Usuario;
 
-import com.brokis.Banco.controlador.dto.UsuarioDTO;
 import com.brokis.Banco.modelo.Cuenta;
 import com.brokis.Banco.modelo.Usuario;
 import com.brokis.Banco.repositorio.RepCuenta;
@@ -14,7 +13,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class ServicioUsuarioImp implements ServicioUsuario {
+public class ServicioUsuarioImp implements ServicioUsuario {/*
     private final RepUsuario repUsuario;
     private final RepCuenta repCuenta;
     @Override
@@ -36,5 +35,5 @@ public class ServicioUsuarioImp implements ServicioUsuario {
             }
         }
         return listaCuentas;
-    }
+    }*/
 }

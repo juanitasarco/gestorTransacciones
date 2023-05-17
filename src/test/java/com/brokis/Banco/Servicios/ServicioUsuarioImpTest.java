@@ -1,6 +1,6 @@
 package com.brokis.Banco.Servicios;
 import static org.mockito.BDDMockito.given;
-import com.brokis.Banco.controlador.dto.UsuarioDTO;
+
 import com.brokis.Banco.modelo.Cuenta;
 import com.brokis.Banco.modelo.Usuario;
 import com.brokis.Banco.repositorio.RepCuenta;

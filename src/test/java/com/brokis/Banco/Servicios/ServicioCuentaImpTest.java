@@ -1,6 +1,4 @@
 package com.brokis.Banco.Servicios;
-import com.brokis.Banco.controlador.dto.CuentaDTO;
-import com.brokis.Banco.controlador.dto.IdCuentaDTO;
 import com.brokis.Banco.modelo.Cuenta;
 import com.brokis.Banco.modelo.Usuario;
 import com.brokis.Banco.repositorio.RepCuenta;
@@ -11,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;

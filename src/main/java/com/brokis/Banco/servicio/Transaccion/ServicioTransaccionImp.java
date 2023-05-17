@@ -1,5 +1,4 @@
 package com.brokis.Banco.servicio.Transaccion;
-
 import com.brokis.Banco.controlador.dto.TransaccionDTO;
 import com.brokis.Banco.modelo.*;
 import com.brokis.Banco.modelo.Transaccion;
@@ -26,7 +25,6 @@ public class ServicioTransaccionImp implements ServicioTransaccion {
         if (cuentaOrigen.getSaldo() < transaccionDTO.getMonto()) {
             throw new RuntimeException("Saldo insuficiente");
         }
-
 
         cuentaOrigen.setSaldo(cuentaOrigen.getSaldo() - transaccionDTO.getMonto());
         cuentaDestino.setSaldo(cuentaDestino.getSaldo() + transaccionDTO.getMonto());
