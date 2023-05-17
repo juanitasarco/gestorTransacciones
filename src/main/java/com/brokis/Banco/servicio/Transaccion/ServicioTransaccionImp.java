@@ -18,9 +18,9 @@ public class ServicioTransaccionImp implements ServicioTransaccion {
     @Override
     public String hacerTransferencia(TransaccionDTO transaccionDTO) {
 
-        Cuenta cuentaOrigen = repCuenta.findById(transaccionDTO.getCuentaOrigen()).orElseThrow(() ->
+        Cuenta cuentaOrigen = repCuenta.findById(transaccionDTO.getOrigen()).orElseThrow(() ->
                 new RuntimeException("Cuenta origen no encontrada"));
-        Cuenta cuentaDestino = repCuenta.findById(transaccionDTO.getCuentaDestino()).orElseThrow(() ->
+        Cuenta cuentaDestino = repCuenta.findById(transaccionDTO.getDestino()).orElseThrow(() ->
                 new RuntimeException("Cuenta destino no encontrada"));
 
         if (cuentaOrigen.getSaldo() < transaccionDTO.getMonto()) {
@@ -33,8 +33,8 @@ public class ServicioTransaccionImp implements ServicioTransaccion {
         repCuenta.save(cuentaDestino);
         repCuenta.save(cuentaOrigen);
         Transaccion nuevaTransaccion = new Transaccion();
-        nuevaTransaccion.setDestino(transaccionDTO.getCuentaDestino());
-        nuevaTransaccion.setOrigen(transaccionDTO.getCuentaOrigen());
+        nuevaTransaccion.setDestino(transaccionDTO.getDestino());
+        nuevaTransaccion.setOrigen(transaccionDTO.getOrigen());
         nuevaTransaccion.setMonto(transaccionDTO.getMonto());
         repTransaccion.save(nuevaTransaccion);
 
