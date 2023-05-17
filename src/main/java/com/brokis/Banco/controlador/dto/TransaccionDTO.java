@@ -9,8 +9,8 @@ import lombok.Data;
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class TransaccionDTO {
 
-    private Long cuentaOrigen;
-    private Long cuentaDestino;
+    private Long origen;
+    private Long destino;
     private int monto;
 
 
