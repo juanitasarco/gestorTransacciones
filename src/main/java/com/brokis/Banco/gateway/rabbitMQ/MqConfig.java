@@ -1,4 +1,4 @@
-package com.brokis.Banco.config;
+package com.brokis.Banco.gateway.rabbitMQ;
 
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
