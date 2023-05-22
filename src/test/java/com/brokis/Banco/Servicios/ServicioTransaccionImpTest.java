@@ -1,11 +1,11 @@
 package com.brokis.Banco.Servicios;
-import com.brokis.Banco.controlador.dto.TransaccionDTO;
+import com.brokis.Banco.gateway.dto.TransaccionDTO;
 import com.brokis.Banco.modelo.Cuenta;
 import com.brokis.Banco.modelo.Transaccion;
 import com.brokis.Banco.modelo.Usuario;
 import com.brokis.Banco.repositorio.RepCuenta;
 import com.brokis.Banco.repositorio.RepTransaccion;
-import com.brokis.Banco.servicio.Transaccion.ServicioTransaccionImp;
+import com.brokis.Banco.servicio.ServicioTransaccionImp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
