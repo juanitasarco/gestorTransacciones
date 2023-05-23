@@ -11,14 +11,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 @ExtendWith(MockitoExtension.class)
-public class RabbitmqLsitenerTest extends AbstractTest {
+class RabbitmqLsitenerTest extends AbstractTest {
     @Mock
     private ServicioTransaccion servicioTransaccion;
 
     private ListenerRabbit listenerRabbit;
 
     @Test
-    public void testRecibirTransaccion() {
+    void testRecibirTransaccion() {
         // Arrange
         TransaccionDTO transaccionDTO = new TransaccionDTO();
         Mockito.when(servicioTransaccion.hacerTransferencia(transaccionDTO)).thenReturn("La Transferencia ha sido exitosa");

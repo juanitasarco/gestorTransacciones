@@ -17,7 +17,7 @@ import java.util.Optional;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
-public class ServicioTransaccionImpTest {
+class ServicioTransaccionImpTest {
     @Mock
     private RepTransaccion repTransaccion;
     @Mock
