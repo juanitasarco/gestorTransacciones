@@ -3,6 +3,7 @@ plugins {
 	id 'org.springframework.boot' version '3.0.4'
 	id 'io.spring.dependency-management' version '1.1.0'
 	id 'jacoco'
+	id("org.sonarqube") version "3.3"
 }
 
 group = 'com.brokis'
@@ -20,7 +21,7 @@ repositories {
 }
 
 dependencies {
-
+	implementation("com.google.guava:guava:31.1-jre")
 	implementation 'io.swagger:swagger-annotations:2.0.0-rc2'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -33,20 +34,24 @@ dependencies {
 	testImplementation 'org.springframework.amqp:spring-rabbit-test'
 	runtimeOnly 'com.h2database:h2'
 }
-jacoco{
-	toolVersion = "0.8.8"
-	reportsDirectory = file("$buildDir/customJacocoReportDir")
-}
+
 test {
 	useJUnitPlatform()
 	finalizedBy jacocoTestReport
+}
+sonarqube {
+	properties{
+		property("sonar.projectName", "gestorDepositos-Banco")
+		property("sonar.host.url", "http://localhost:9000")
+		property("sonar.login", "admin")
+		property("sonar.password", "admin123")
+	}
 }
 jacocoTestReport {
 	dependsOn(test)
 	reports {
 		xml.enabled false
 		html.enabled true
-
 	}
 
 	afterEvaluate {
