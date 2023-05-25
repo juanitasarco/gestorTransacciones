@@ -7,8 +7,8 @@ plugins {
 }
 
 group = 'com.brokis'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '19'
+version = '1.1'
+sourceCompatibility = '17'
 
 configurations {
 	compileOnly {
@@ -34,11 +34,6 @@ dependencies {
 	testImplementation 'org.springframework.amqp:spring-rabbit-test'
 	runtimeOnly 'com.h2database:h2'
 }
-
-test {
-	useJUnitPlatform()
-	finalizedBy jacocoTestReport
-}
 sonarqube {
 	properties{
 		property("sonar.projectName", "gestorDepositos-Banco")
@@ -47,18 +42,18 @@ sonarqube {
 		property("sonar.password", "admin123")
 	}
 }
+test {
+	useJUnitPlatform()
+	finalizedBy jacocoTestReport
+}
 jacocoTestReport {
 	dependsOn(test)
-	reports {
-		xml.enabled false
-		html.enabled true
-	}
-
 	afterEvaluate {
 		classDirectories.setFrom(files(classDirectories.files.collect {
 			fileTree(dir: it, exclude: [
 					"**/dto/**",
-					"**/modelo/*"
+					"**/modelo/*",
+					"**/repositorio/*"
 			])
 		}))
 	}
