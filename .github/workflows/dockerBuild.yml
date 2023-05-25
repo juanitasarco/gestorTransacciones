@@ -2,7 +2,7 @@ name: Build image Docker
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "TestCD" ]
 permissions:
   contents: read
 jobs:
@@ -27,5 +27,5 @@ jobs:
           tags: latest
           registry: docker.io
           dockerfile: Dockerfile
-          username: ${{ secrets.USUARIODEPOSITOS }}
-          password: ${{ secrets.CONTRASENADEPOSITOS }}
+          username: ${{ secrets.USERT }}
+          password: ${{ secrets.PASST }}
